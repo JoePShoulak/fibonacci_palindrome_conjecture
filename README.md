@@ -2,8 +2,9 @@
 
 The program generates Fibonacci numbers, takes them mod M until they repeat (proven to always do so by D. D. Wall, 1960). They are then arranged in an array like this:
 
-1  | 3
-2  | 4
+1 3
+
+2 4
 
 The bottom seems to always be a palindrome, and the top can be split on two zeroes (one is the first indice of the series, which starts with 0, 1, and the second which is halfay through the width of the array). After splitting on these zeroes, the two resulting strings are sometimes palindromes. This program tests that. 
 
