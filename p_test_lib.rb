@@ -6,13 +6,18 @@ def fib(n)
   b
 end
 
-def pArray2(n)
+def residuals(n)
   i = 0
   a = []
   while [a[-2], a[-1]] != [n-1, 1]
     a += [fib(i) % n]
     i += 1
   end
+  a
+end
+
+def pArray2(n)
+  a = residuals(n)
   l1, l2 = [], []
   a.length.times do |it|
     if it.even?
