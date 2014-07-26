@@ -36,7 +36,9 @@ while 1 == 1
 end
 
 f = File.open("./p_data.txt", "a")
+print "\nSaving data..."
 f.write(data)
+print "\rData saved.    \n"
 f.close
 
 rat = 100.0/diff
@@ -59,29 +61,13 @@ puts "If you would like details on the results, enter \"Verbose\" now. Enter any
 choice = gets.chomp!
 
 if choice.downcase == "verbose" or choice.downcase == "v"
-  if ful == []
-    ful = "None" 
-  else
-    ful.join(", ")
-  end
-  if top == []
-    top = "None"
-  else
-    top.join(", ")
-  end
-  if bot == []
-    bot = "None"
-  else
-    bot.join(", ")
-  end
-  if non == []
-    non = "None"
-  else
-    non.join(", ")
-  end
+  ful = noneIfEmptyElseJoin(ful)
+  top = noneIfEmptyElseJoin(top)
+  bot = noneIfEmptyElseJoin(bot)
+  non = noneIfEmptyElseJoin(non)
   
   puts "Full passing numbers: #{ful}"
-  puts "Top-only numbers:     #{top}"
-  puts "Bottom-only numbers:  #{bot}"
+  puts "Top-only numbers: #{top}"
+  puts "Bottom-only numbers: #{bot}"
   puts "Full failing numbers: #{non}"
 end

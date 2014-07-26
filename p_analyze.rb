@@ -1,3 +1,5 @@
+require "./p_test_lib.rb"
+
 f = File.open("./p_data.txt", "r")
 data = f.read
 data = data.split("\n")
@@ -17,28 +19,35 @@ data.each do |i|
   end
 end
 
-if ful == []
-  ful = "None" 
-else
-  ful.join(", ")
-end
-if top == []
-  top = "None"
-else
-  top.join(", ")
-end
-if bot == []
-  bot = "None"
-else
-  bot.join(", ")
-end
-if non == []
-  non = "None"
-else
-  non.join(", ")
-end
+total = ful.length + top.length + bot.length + non.length
 
-puts "Full passing numbers: #{ful}"
-puts "Top-only numbers:     #{top}"
-puts "Bottom-only numbers:  #{bot}"
-puts "Full failing numbers: #{non}"
+rat = 100.0/total
+fp = (ful.length*rat).round(2)
+tp = (top.length*rat).round(2)
+bp = (bot.length*rat).round(2)
+np = (non.length*rat).round(2)
+
+print "\n== Results ==\n\n"
+
+puts "Full passes: #{ful.length} (#{fp}%)"
+puts "Top-only passes: #{top.length} (#{tp}%)"
+puts "Bottom-only passes: #{bot.length} (#{bp}%)"
+puts "Full fails: #{non.length} (#{np}%)"
+
+print "\n"
+
+puts "If you would like details on the results, enter \"Verbose\" now. Enter anything else to quit."
+
+choice = gets.chomp!
+
+if choice.downcase == "verbose" or choice.downcase == "v"
+  ful = noneIfEmptyElseJoin(ful)
+  top = noneIfEmptyElseJoin(top)
+  bot = noneIfEmptyElseJoin(bot)
+  non = noneIfEmptyElseJoin(non)
+  
+  puts "Full passing numbers: #{ful}"
+  puts "Top-only numbers: #{top}"
+  puts "Bottom-only numbers: #{bot}"
+  puts "Full failing numbers: #{non}"
+end

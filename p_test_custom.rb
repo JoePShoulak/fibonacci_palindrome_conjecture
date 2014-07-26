@@ -48,30 +48,14 @@ if ARGV.length != 1
   choice = $stdin.gets.chomp!
   
   if choice.downcase == "verbose" or choice.downcase == "v"
-    if ful == []
-      ful = "None" 
-    else
-      ful.join(", ")
-    end
-    if top == []
-      top = "None"
-    else
-      top.join(", ")
-    end
-    if bot == []
-      bot = "None"
-    else
-      bot.join(", ")
-    end
-    if non == []
-      non = "None"
-    else
-      non.join(", ")
-    end
+    ful = noneIfEmptyElseJoin(ful)
+    top = noneIfEmptyElseJoin(top)
+    bot = noneIfEmptyElseJoin(bot)
+    non = noneIfEmptyElseJoin(non)
     
     puts "Full passing numbers: #{ful}"
-    puts "Top-only numbers:     #{top}"
-    puts "Bottom-only numbers:  #{bot}"
+    puts "Top-only numbers: #{top}"
+    puts "Bottom-only numbers: #{bot}"
     puts "Full failing numbers: #{non}"
   end
 else

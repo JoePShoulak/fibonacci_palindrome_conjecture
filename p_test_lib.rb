@@ -1,4 +1,4 @@
-def fib(n)
+def fib(n) #Generate Fibonacci Numbers
   a, b = 0, 1
   (n-1).times do
     a, b = b, a+b
@@ -6,7 +6,7 @@ def fib(n)
   b
 end
 
-def residuals(n)
+def residuals(n) # Generate the residual sequence (mod m)
   i = 0
   a = []
   while [a[-2], a[-1]] != [n-1, 1]
@@ -16,7 +16,7 @@ def residuals(n)
   a
 end
 
-def pArray2(n)
+def pArray2(n) # Generate the array TODO: Chance to general pisano array, pass "2" to it later
   a = residuals(n)
   l1, l2 = [], []
   a.length.times do |it|
@@ -29,7 +29,7 @@ def pArray2(n)
   [l1, l2]
 end
 
-def check(a)
+def check(a) # Chec if the array follows the conjecture
   l1, l2 = a[0], a[1]
   z = ((l1.length)/2)
   l1a = l1[1..(z-1)]
@@ -49,6 +49,15 @@ def check(a)
   [t1, t2]
 end
 
-def log10(x)
+def log10(x) # Log base 10
   Math.log(x)/Math.log(10)
+end
+
+def noneIfEmptyElseJoin(array)
+  if array == []
+    r = "None"
+  else
+    r = array.join(",")
+  end
+  r
 end
