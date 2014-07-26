@@ -1,10 +1,7 @@
 require "./p_test_lib.rb"
 
-print "To test: "
-to_test = gets.chomp!
-if to_test.include? "-"
-  lh = to_test.split("-")
-  l, h = lh[0].to_i, lh[1].to_i
+if ARGV.length != 1
+  l, h = ARGV[0].to_i, ARGV[1].to_i
   non, top, bot, ful = [], [], [], []
 
   (l..h).each do |i|
@@ -48,7 +45,7 @@ if to_test.include? "-"
 
   puts "If you would like details on the results, enter \"Verbose\" now. Enter anything else to quit."
 
-  choice = gets.chomp!
+  choice = $stdin.gets.chomp!
   
   if choice.downcase == "verbose" or choice.downcase == "v"
     if ful == []
@@ -78,6 +75,7 @@ if to_test.include? "-"
     puts "Full failing numbers: #{non}"
   end
 else
+  to_test = ARGV[0]
   print "Testing #{to_test}..."
   a = pArray2(to_test.to_i)
   r = check(a)
@@ -88,8 +86,8 @@ else
 
   puts "If you would like to view the array, enter \"Verbose\" now. Enter anything else to quit."
 
-  choice = gets.chomp!
-  if choice.downcase == "verbose"
+  choice = $stdin.gets.chomp!
+  if choice.downcase == "verbose" or choice.downcase == "v"
     p a[0]
     p a[1]
   end
