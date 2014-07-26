@@ -1,4 +1,11 @@
 require "./p_test_lib.rb"
+require "colorize"
+
+if ARGV == ["-v"]
+  verbose = true
+else
+  verbose = false
+end
 
 f = File.open("./p_data.txt", "r")
 data = f.read
@@ -27,27 +34,23 @@ tp = (top.length*rat).round(2)
 bp = (bot.length*rat).round(2)
 np = (non.length*rat).round(2)
 
-print "\n== Results ==\n\n"
+print "\n== Results ==\n\n".bold
 
-puts "Full passes: #{ful.length} (#{fp}%)"
-puts "Top-only passes: #{top.length} (#{tp}%)"
-puts "Bottom-only passes: #{bot.length} (#{bp}%)"
-puts "Full fails: #{non.length} (#{np}%)"
+puts "Full passes:".bold() + " #{ful.length} (#{fp}%)"
+puts "Top-only passes:".bold() + " #{top.length} (#{tp}%)"
+puts "Bottom-only passes:".bold() + " #{bot.length} (#{bp}%)"
+puts "Full fails:".bold() + " #{non.length} (#{np}%)"
 
 print "\n"
 
-puts "If you would like details on the results, enter \"Verbose\" now. Enter anything else to quit."
-
-choice = gets.chomp!
-
-if choice.downcase == "verbose" or choice.downcase == "v"
+if verbose
   ful = noneIfEmptyElseJoin(ful)
   top = noneIfEmptyElseJoin(top)
   bot = noneIfEmptyElseJoin(bot)
   non = noneIfEmptyElseJoin(non)
   
-  puts "Full passing numbers: #{ful}"
-  puts "Top-only numbers: #{top}"
-  puts "Bottom-only numbers: #{bot}"
-  puts "Full failing numbers: #{non}"
+  puts "Full passing numbers:".bold() + " #{ful}"
+  puts "Top-only numbers:".bold() + " #{top}"
+  puts "Bottom-only numbers:".bold() + " #{bot}"
+  puts "Full failing numbers:".bold() + " #{non}"
 end

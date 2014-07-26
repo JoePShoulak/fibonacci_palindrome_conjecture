@@ -57,7 +57,16 @@ def noneIfEmptyElseJoin(array)
   if array == []
     r = "None"
   else
-    r = array.join(",")
+    r = array.join(", ")
   end
   r
+end
+
+def accent(str)
+  if str == "pass"
+    str = str.green
+  else
+    str = str.red
+  end
+  str
 end
