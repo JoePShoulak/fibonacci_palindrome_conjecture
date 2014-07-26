@@ -26,7 +26,7 @@ data.each do |i|
   end
 end
 
-total = ful.length + top.length + bot.length + non.length
+total = (ful + top + bot + non).length
 
 rat = 100.0/total
 fp = (ful.length*rat).round(2)
@@ -36,6 +36,7 @@ np = (non.length*rat).round(2)
 
 print "\n== Results ==\n\n".bold
 
+puts "Tested from 2 to #{total+17}".bold + " (#{total+15} results)"
 puts "Full passes:".bold() + " #{ful.length} (#{fp}%)"
 puts "Top-only passes:".bold() + " #{top.length} (#{tp}%)"
 puts "Bottom-only passes:".bold() + " #{bot.length} (#{bp}%)"
@@ -49,8 +50,10 @@ if verbose
   bot = noneIfEmptyElseJoin(bot)
   non = noneIfEmptyElseJoin(non)
   
-  puts "Full passing numbers:".bold() + " #{ful}"
-  puts "Top-only numbers:".bold() + " #{top}"
-  puts "Bottom-only numbers:".bold() + " #{bot}"
-  puts "Full failing numbers:".bold() + " #{non}"
+  puts "Full passing numbers:".bold + " #{ful}"
+  puts "Top-only numbers:".bold + " #{top}"
+  puts "Bottom-only numbers:".bold + " #{bot}"
+  puts "Full failing numbers:".bold + " #{non}"
+  
+  print "\n"
 end

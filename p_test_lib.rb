@@ -1,3 +1,5 @@
+require "terminfo"
+
 def fib(n) #Generate Fibonacci Numbers
   a, b = 0, 1
   (n-1).times do
@@ -16,7 +18,7 @@ def residuals(n) # Generate the residual sequence (mod m)
   a
 end
 
-def pArray2(n) # Generate the array TODO: Chance to general pisano array, pass "2" to it later
+def pArray2(n) # Generate the array
   a = residuals(n)
   l1, l2 = [], []
   a.length.times do |it|
@@ -36,21 +38,11 @@ def check(a) # Chec if the array follows the conjecture
   l1b = l1[(z+1)..((l1.length) - 1)]
   t1 = ((l1a == l1a.reverse) and (l1b == l1b.reverse))
   t2 = (l2 == l2.reverse)
-  if t1
-    t1 = "pass"
-  else
-    t1 = "fail"
-  end
-  if t2
-    t2 = "pass"
-  else
-    t2 = "fail"
-  end
-  [t1, t2]
-end
 
-def log10(x) # Log base 10
-  Math.log(x)/Math.log(10)
+  t1 = passFail(t1)
+  t2 = passFail(t2)
+  
+  [t1, t2]
 end
 
 def noneIfEmptyElseJoin(array)
@@ -69,4 +61,17 @@ def accent(str)
     str = str.red
   end
   str
+end
+
+def passFail(t)
+  if t
+    t = "pass"
+  else
+    t = "fail"
+  end
+  t
+end
+
+def newline()
+  print "\r" + " "*TermInfo.screen_size[1] + "\r"
 end

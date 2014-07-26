@@ -1,5 +1,5 @@
 require "./p_test_lib.rb"
-require 'colorize'
+require "colorize"
 
 if ARGV == ["-v"]
   verbose = true
@@ -18,7 +18,7 @@ non, top, bot, ful = [], [], [], []
 i = start + 1
 while 1 == 1
   begin
-    print "Testing #{i}..."
+    print "Testing #{i}" + "...".blink
     r = check(pArray2(i))
     rt, rb = r[0], r[1]
     if (rt=="pass" and rb=="pass")
@@ -31,12 +31,14 @@ while 1 == 1
       non += [i]
     end
     data += "#{i}:#{rt.upcase[0]}:#{rb.upcase[0]}\n"
-    print "\rResults for #{i}:\n".bold
-    print "  Top: #{accent(rt)}\n".bold
-    print "  Bot: #{accent(rb)}\n".bold
+    newline
+    puts "Results for #{i}:".bold
+    puts "  Top: #{accent(rt)}".bold
+    puts "  Bot: #{accent(rb)}".bold
     i += 1
   rescue Exception
-    diff = i - start - 1
+    finish = i - 1 
+    diff = finish - start
     print "\r" + " "*20 + "\nTesting aborted.\n".bold
     break
   end
@@ -45,22 +47,23 @@ end
 f = File.open("./p_data.txt", "a")
 print "\nSaving data..."
 f.write(data)
-print "\rData saved.    \n".bold
+newline
+puts "Data saved.".bold
 f.close
 
 rat = 100.0/diff
-fp = (ful.length*rat).round(log10(i))
-tp = (top.length*rat).round(log10(i))
-bp = (bot.length*rat).round(log10(i))
-np = (non.length*rat).round(log10(i))
+fp = (ful.length*rat).round(2)
+tp = (top.length*rat).round(2)
+bp = (bot.length*rat).round(2)
+np = (non.length*rat).round(2)
 
-print "\n== Results ==\n\n".bold
+puts "\n== Results ==\n".bold
 
-puts "Arrays tested: ".bold() + diff.to_s
-puts "Full passes:".bold() + " #{ful.length} (#{fp}%)"
-puts "Top-only passes:".bold() + " #{top.length} (#{tp}%)"
-puts "Bottom-only passes:".bold() + " #{bot.length} (#{bp}%)"
-puts "Full fails:".bold() + " #{non.length} (#{np}%)"
+puts "Tested from #{start} to #{finish}".bold + " (#{finish-start} arrays)"
+puts "Full passes: #{ful.length} ".bold + "(#{fp}%)"
+puts "Top-only passes: #{top.length} ".bold + "(#{tp}%)"
+puts "Bottom-only passes: #{bot.length} ".bold + "(#{bp}%)"
+puts "Full fails: #{non.length} ".bold + "(#{np}%)"
 
 print "\n"
 
