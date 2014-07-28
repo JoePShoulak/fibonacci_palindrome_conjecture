@@ -75,3 +75,47 @@ end
 def newline()
   print "\r" + " "*TermInfo.screen_size[1] + "\r"
 end
+
+def plural(word, num)
+  if num != 1
+    word += "s"
+  end
+  word
+end
+
+
+def humanTime(ttime)
+  ttime *= 1000
+  ttime = ttime.to_i
+  
+  ml = ttime % 1000
+  ttime = (ttime/1000.0).to_i
+  
+  s = ttime % 60
+  ttime = (ttime/60.0).to_i
+  
+  mn = ttime % 60
+  ttime = (ttime/60.0.to_i)
+  
+  h  = ttime
+  
+  wordForm = ""
+  if h != 0
+    wordForm += h.to_s + " " + plural("hour", h) + " "
+  end
+  if mn != 0
+    wordForm += mn.to_s + " " + plural("minute", mn) + " "
+  end
+  if s != 0
+    wordForm += s.to_s + " " + plural("second", s) + " "
+  end
+  if ml != 0
+    wordForm += ml.to_s + " " + plural("millisecond", ml) + " "
+  end
+  
+  if wordForm == ""
+    wordForm = "Less than a millisecond"
+  end    
+  
+  wordForm.strip
+end

@@ -4,10 +4,14 @@ require "colorize"
 if ARGV[-1] == "-v"
   args = ARGV[0, ARGV.length-1]
   verbose = true
+elsif ARGV == []
+  puts "Not valid CL args"
+  exit
 else
   args = ARGV
   verbose = false
 end
+
 
 if args.length != 1
   l, h = args[0].to_i, args[1].to_i
@@ -16,6 +20,7 @@ if args.length != 1
   (l..h).each do |i|
     begin
       print "Testing #{i}" + "...".blink
+      ttime = Time.now
       r = check(pArray2(i))
       rt, rb = r[0], r[1]
       if (rt=="pass" and rb=="pass")
@@ -31,7 +36,8 @@ if args.length != 1
       puts "Results for #{i}:".bold
       puts "  Top: #{accent(rt)}".bold
       puts "  Bot: #{accent(rb)}".bold
-    rescue Exception
+      puts "  Time: #{humanTime(Time.now - ttime)}".bold
+    rescue Interrupt
       h = i
       print "\r" + " "*20 + "\nTesting aborted.\n".bold
       break

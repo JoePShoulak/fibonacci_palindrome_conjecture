@@ -19,6 +19,7 @@ i = start + 1
 while 1 == 1
   begin
     print "Testing #{i}" + "...".blink
+    ttime = Time.now
     r = check(pArray2(i))
     rt, rb = r[0], r[1]
     if (rt=="pass" and rb=="pass")
@@ -35,8 +36,9 @@ while 1 == 1
     puts "Results for #{i}:".bold
     puts "  Top: #{accent(rt)}".bold
     puts "  Bot: #{accent(rb)}".bold
+    puts "  Time: #{humanTime(Time.now - ttime)}".bold
     i += 1
-  rescue Exception
+  rescue Interrupt
     finish = i - 1 
     diff = finish - start
     print "\r" + " "*20 + "\nTesting aborted.\n".bold
