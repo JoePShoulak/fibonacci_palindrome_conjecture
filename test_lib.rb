@@ -73,7 +73,8 @@ def passFail(t)
 end
 
 def newline()
-  print "\r" + " "*TermInfo.screen_size[1] + "\r"
+  m = TermInfo.screen_size[1]
+  print "\r" + " "*m + "\b"*m
 end
 
 def plural(word, num)
@@ -83,10 +84,51 @@ def plural(word, num)
   word
 end
 
+def leadingZeroes(num, len)
+  num = num.to_s
+  
+  while num.length != len
+    num = "0" + num
+  end
+  
+  num
+end
+
+
+def conciseTime(ttime)
+  ttime *= 1000000
+  ttime = ttime.to_i
+  
+  mc = ttime % 1000
+  ttime = (ttime/1000.0).to_i  
+  
+  ml = ttime % 1000
+  ttime = (ttime/1000.0).to_i
+  
+  s = ttime % 60
+  ttime = (ttime/60.0).to_i
+  
+  mn = ttime % 60
+  ttime = (ttime/60.0.to_i)
+  
+  h  = ttime
+  
+  h  = leadingZeroes(h,  2)
+  mn = leadingZeroes(mn, 2)
+  s  = leadingZeroes(s,  2)
+  ml = leadingZeroes(ml, 3)
+  mc = leadingZeroes(mc, 3)
+  
+  conciseForm = "#{h}:#{mn}:#{s}.#{ml}.#{mc}"
+end
+
 
 def humanTime(ttime)
-  ttime *= 1000
+  ttime *= 1000000
   ttime = ttime.to_i
+  
+  mc = ttime % 1000
+  ttime = (ttime/1000.0).to_i  
   
   ml = ttime % 1000
   ttime = (ttime/1000.0).to_i
@@ -101,20 +143,25 @@ def humanTime(ttime)
   
   wordForm = ""
   if h != 0
-    wordForm += h.to_s + " " + plural("hour", h) + " "
+    wordForm += h.to_s + " " + plural("hour", h) + ", "
   end
   if mn != 0
-    wordForm += mn.to_s + " " + plural("minute", mn) + " "
+    wordForm += mn.to_s + " " + plural("minute", mn) + ", "
   end
   if s != 0
-    wordForm += s.to_s + " " + plural("second", s) + " "
+    wordForm += s.to_s + " " + plural("second", s) + ", "
   end
   if ml != 0
-    wordForm += ml.to_s + " " + plural("millisecond", ml) + " "
+    wordForm += ml.to_s + " " + plural("millisecond", ml) + ", "
+  end
+  if mc != 0
+    wordForm += mc.to_s + " " + plural("microsecond", ml) + ", "
   end
   
   if wordForm == ""
-    wordForm = "Less than a millisecond"
+    wordForm = "Less than a microsecond"
+  else
+    wordForm = wordForm[0..-3]
   end    
   
   wordForm.strip

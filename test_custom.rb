@@ -36,7 +36,7 @@ if args.length != 1
       puts "Results for #{i}:".bold
       puts "  Top: #{accent(rt)}".bold
       puts "  Bot: #{accent(rb)}".bold
-      puts "  Time: #{humanTime(Time.now - ttime)}".bold
+      puts "  Time: #{conciseTime(Time.now - ttime)}".bold
     rescue Interrupt
       h = i
       print "\r" + " "*20 + "\nTesting aborted.\n".bold
@@ -74,6 +74,7 @@ if args.length != 1
 else
   to_test = args[0]
   print "Testing #{to_test}" + "...".blink
+  ttime = Time.now
   a = pArray2(to_test.to_i)
   r = check(a)
   rt, rb = r[0], r[1]
@@ -81,6 +82,7 @@ else
   puts "Results for #{to_test}:".bold
   puts "  Top: #{accent(rt)}".bold
   puts "  Bot: #{accent(rb)}".bold
+  puts "  Time: #{conciseTime(Time.now - ttime)}".bold
 
   if verbose
     p a[0]

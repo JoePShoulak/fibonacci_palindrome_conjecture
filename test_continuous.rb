@@ -1,4 +1,4 @@
-require "./p_test_lib.rb"
+require "./test_lib.rb"
 require "colorize"
 
 if ARGV == ["-v"]
@@ -7,7 +7,7 @@ else
   verbose = false
 end
 
-f = File.open("./p_data.txt", "r")
+f = File.open("./data.txt", "r")
 start = f.read.split("\n")[-1].split(":")[0].to_i
 f.close
 
@@ -36,7 +36,7 @@ while 1 == 1
     puts "Results for #{i}:".bold
     puts "  Top: #{accent(rt)}".bold
     puts "  Bot: #{accent(rb)}".bold
-    puts "  Time: #{humanTime(Time.now - ttime)}".bold
+    puts "  Time: #{conciseTime(Time.now - ttime)}".bold
     i += 1
   rescue Interrupt
     finish = i - 1 
@@ -46,7 +46,7 @@ while 1 == 1
   end
 end
 
-f = File.open("./p_data.txt", "a")
+f = File.open("./data.txt", "a")
 print "\nSaving data..."
 f.write(data)
 newline
