@@ -1,4 +1,4 @@
-require "./p_test_lib.rb"
+require "./test_lib.rb"
 require "colorize"
 
 if ARGV[-1] == "-v"

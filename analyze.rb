@@ -1,4 +1,4 @@
-require "./p_test_lib.rb"
+require "./test_lib.rb"
 require "colorize"
 
 if ARGV == ["-v"]
@@ -7,7 +7,7 @@ else
   verbose = false
 end
 
-f = File.open("./p_data.txt", "r")
+f = File.open("./data.txt", "r")
 data = f.read
 data = data.split("\n")
 
