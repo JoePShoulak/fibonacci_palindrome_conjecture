@@ -1,3 +1,8 @@
+
+## Archived ##
+
+This is an older project of mine from earlier in my coding career. I don't feel like making it private or deleting it, but this project does not necessarily reflect my current methodology as a developer. No further changes have been made. 
+
 # The question
 
 The program generates Fibonacci numbers, takes them mod M until they repeat (proven to always do so by D. D. Wall, 1960). They are then arranged in an array like this:
